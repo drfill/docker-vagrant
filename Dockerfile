@@ -2,12 +2,13 @@ FROM phusion/baseimage:master
 MAINTAINER Fill Q <admin@njoyx.net>
 
 # Environment variables
-ENV HOME /root
+ENV HOME /home/vagrant
 ENV DEBIAN_FRONTEND noninteractive
 ENV TERM linux
 
 # Do common baseimage actions
-RUN echo "/root" > /etc/container_environment/HOME && \
+RUN adduser --disabled-password --gecos "" vagrant && \
+    echo "/home/vagrant" > /etc/container_environment/HOME && \
     echo "noninteractive" > /etc/container_environment/DEBIAN_FRONTEND && \
     echo "linux" > /etc/container_environment/TERM && \
     rm -f /etc/service/sshd/down && \
@@ -28,8 +29,9 @@ RUN apt-get -qq update && \
     chmod -x /etc/my_init.d/10_syslog-ng.init
 
 # Add Vagrant key
-RUN mkdir -p /root/.ssh && \
-    curl -sL https://raw.githubusercontent.com/mitchellh/vagrant/master/keys/vagrant.pub > /root/.ssh/authorized_keys
+RUN echo "vagrant ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/00-vagrant && \
+    mkdir -p /home/vagrant/.ssh && \
+    curl -sL https://raw.githubusercontent.com/mitchellh/vagrant/master/keys/vagrant.pub > /home/vagrant/.ssh/authorized_keys
 
 # Cleanups
 RUN rm -rf /tmp/* /var/tmp/*
