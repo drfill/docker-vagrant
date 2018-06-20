@@ -17,6 +17,7 @@ RUN echo "/root" > /etc/container_environment/HOME && \
 # Install necessary packages
 RUN apt-get -qq update && \
     apt-get -qq install -y --no-install-recommends \
+        sudo \
         git \
         vim \
         nano \
