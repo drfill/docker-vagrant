@@ -1,8 +1,8 @@
 # Baseimage for Docker-related Vagrant environments
 
 
-FROM phusion/baseimage:latest
-MAINTAINER Sergey Arkhipov <nineseconds@yandex.ru>
+FROM phusion/baseimage:0.10.1
+MAINTAINER Fill Q <admin@njoyx.net>
 
 # Environment variables
 ENV HOME /root
