@@ -1,7 +1,4 @@
-# Baseimage for Docker-related Vagrant environments
-
-
-FROM phusion/baseimage:0.10.1
+FROM phusion/baseimage:master
 MAINTAINER Fill Q <admin@njoyx.net>
 
 # Environment variables
@@ -26,7 +23,8 @@ RUN apt-get -qq update && \
         curl \
         wget && \
     apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/* && \
+    chmod -x /etc/my_init.d/10_syslog-ng.init
 
 # Add Vagrant key
 RUN mkdir -p /root/.ssh && \
